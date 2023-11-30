@@ -1,0 +1,49 @@
+bool checkIfExist(int* arr, int arrSize) {
+    for( int i = 0 ; i < arrSize ; i++)
+        for( int j = 0 ; j < arrSize ; j++)
+            if((arr[j] == 2*arr[i]) && (i != j))
+                return 1;
+    return 0;
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+bool checkIfExist(int* arr, int arrSize){
+    int *hash = calloc(2001, sizeof(int)), process;/* -1000 - 0 - 1000 */
+    for(int i = 0; i < arrSize; i++)
+    {
+        if(arr[i] & 1) /* odd */
+        {
+            process = arr[i] * 2;
+            if((process <= 1000) && (process >= -1000) && hash[1000+process])
+                return 1;
+        }
+        else /* even */
+        {
+            process = arr[i] * 2;
+            if((process <= 1000) && (process >= -1000) && hash[1000+process])
+                return 1;
+            process = arr[i] / 2;
+            if(hash[1000+process])
+                return 1;
+        }
+        hash[1000+arr[i]]++;
+    }
+    return 0;
+}
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+bool checkIfExist(int* arr, int arrSize){
+    int hash_map[2001] = {0};
+    for (int i = 0; i < arrSize; i++)
+        hash_map[arr[i]+1000] = i+1; 
+    for (int i = 0; i < arrSize; i++) 
+        if ((arr[i] <= 500 && arr[i] >= -500) && (hash_map[2*arr[i]+1000] && hash_map[2*arr[i]+1000] != i+1)) 
+            return 1;
+    return 0;
+}
